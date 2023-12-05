@@ -7,10 +7,15 @@ import java.awt.Image;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import connection.ClientPatient;
+import telemedicineApp.pojos.Patient;
+
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
@@ -18,8 +23,9 @@ import javax.swing.JPasswordField;
 public class AppDisplay extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField username;
+	private JTextField userID;
 	private JPasswordField password;
+	private ClientPatient client;
 
 	
 	public static void main(String[] args) {
@@ -39,6 +45,9 @@ public class AppDisplay extends JFrame {
 	 * Create the frame.
 	 */
 	public AppDisplay() {
+		
+		client = new ClientPatient("localhost", 9000);
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 639, 386);
 		contentPane = new JPanel();
@@ -49,7 +58,11 @@ public class AppDisplay extends JFrame {
 		JButton logIn = new JButton("Log in");
 		logIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//patient = databaseManager.checkPatient(username.toString(), password.toString());
+				try {
+					client.checkPatient(userID.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 				JFrame patientDisplay = new PatientDisplay(AppDisplay.this);
 				patientDisplay.setVisible(true);
 			}
@@ -57,12 +70,12 @@ public class AppDisplay extends JFrame {
 		logIn.setBounds(183, 187, 230, 23);
 		contentPane.add(logIn);
 		
-		username = new JTextField();
-		username.setBounds(173, 125, 269, 20);
-		contentPane.add(username);
-		username.setColumns(10);
+		userID = new JTextField();
+		userID.setBounds(173, 125, 269, 20);
+		contentPane.add(userID);
+		userID.setColumns(10);
 		
-		JLabel lblNewLabel = new JLabel("Username :");
+		JLabel lblNewLabel = new JLabel("User ID :");
 		lblNewLabel.setBounds(93, 128, 77, 14);
 		contentPane.add(lblNewLabel);
 		

@@ -15,6 +15,7 @@ import BITalino.BITalinoException;
 import BITalino.BitalinoDemo;
 import BITalino.Frame;
 import connection.ClientPatient;
+import telemedicineApp.pojos.Patient;
 
 import javax.bluetooth.RemoteDevice;
 import javax.swing.ImageIcon;
@@ -57,7 +58,7 @@ public class SignalRecording extends JFrame {
 	
 
 	
-	public SignalRecording(JFrame patientDisplay) {
+	public SignalRecording(JFrame patientDisplay, Patient patient) {
 		patientDisplay.setVisible(false);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -100,8 +101,8 @@ public class SignalRecording extends JFrame {
 				String timeRecording = minutes + " minutes" + seconds + " seconds";
 				dataFromBitalino = bitalinoThread.getDataFromBitalino();
 				//System.out.println(bitalinoThread.getDataFromBitalino());
+				//System.out.println(timeRecording);
 				
-				System.out.println(timeRecording);
 			}
 		});
 		stop.setEnabled(false);

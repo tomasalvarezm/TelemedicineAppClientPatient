@@ -63,7 +63,10 @@ public class ClientPatient implements Serializable{
 		this.objectOutput.writeObject(values);
 	}
 	
-    //TODO hacer lo de Thread.sleep() para que se mande entera aunque haya mas clientes conectados
+	public void checkPatient(String id/*, String password*/) throws IOException {
+		objectOutput.writeObject(id);
+	}
+	
 	
 	//Should be done when logout?
 	private static void releaseResources(OutputStream outputStream, Socket socket) {
