@@ -50,9 +50,6 @@ public class SignalRecording extends JFrame {
 	private JTextField macAddress;
 	
 	private ArrayList<Integer> dataFromBitalino = new ArrayList<Integer>();
-	//private BitalinoDemo bitalino = new BitalinoDemo();
-	private Frame[] frame;
-    private BITalino bitalino;
     private BitalinoDemo bitalinoThread;
 	private LocalTime startTime;
 	
@@ -69,6 +66,7 @@ public class SignalRecording extends JFrame {
 		contentPane.setLayout(null);
 		
 		start = new JButton("");
+		start.setToolTipText("Start recording");
 		start.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -90,6 +88,7 @@ public class SignalRecording extends JFrame {
 		contentPane.add(start);
 		
 		stop = new JButton("");
+		stop.setToolTipText("Stop recording");
 		stop.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -100,8 +99,6 @@ public class SignalRecording extends JFrame {
 				long seconds = ChronoUnit.SECONDS.between(startTime, currentTime);
 				String timeRecording = minutes + " minutes" + seconds + " seconds";
 				dataFromBitalino = bitalinoThread.getDataFromBitalino();
-				//System.out.println(bitalinoThread.getDataFromBitalino());
-				//System.out.println(timeRecording);
 				
 			}
 		});
@@ -112,15 +109,8 @@ public class SignalRecording extends JFrame {
 		stop.setBounds(250, 88, 41, 33);
 		contentPane.add(stop);
 		
-		JLabel lblNewLabel = new JLabel("Start recording");
-		lblNewLabel.setBounds(112, 74, 86, 14);
-		contentPane.add(lblNewLabel);
-		
-		JLabel lblStopRecording = new JLabel("Stop recording");
-		lblStopRecording.setBounds(231, 74, 86, 14);
-		contentPane.add(lblStopRecording);
-		
 		macAddress = new JTextField();
+		macAddress.setToolTipText("Fromat XX:XX:XX:XX:XX:XX ");
 		macAddress.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -134,6 +124,7 @@ public class SignalRecording extends JFrame {
 		macAddress.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("MAC Address : ");
+		lblNewLabel_1.setToolTipText("Fromat XX:XX:XX:XX:XX:XX ");
 		lblNewLabel_1.setBounds(27, 34, 96, 14);
 		contentPane.add(lblNewLabel_1);
 	}
@@ -145,29 +136,4 @@ public class SignalRecording extends JFrame {
         return matcher.matches();
 	}
 	
-	public boolean isRecording(boolean isRecording) {
-		return isRecording;
-	}
-	
-	/*private void startRecording() {
-		isRecording = true;
-		SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>(){
-			@Override
-			protected Void doInBackground() throws Exception {
-				while(isRecording) {
-					
-				}
-				return null;
-			}
-			@Override
-			protected void done() {
-				isRecording = false;
-			}
-		};
-		worker.execute();
-	}
-	
-	private void stopRecording() {
-		isRecording = false;
-	}*/
 }

@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
@@ -24,7 +25,7 @@ public class ClientPatient implements Serializable{
 	
 	private Socket socket;
 	private ObjectOutputStream objectOutput;
-	//private OutputStream outputStream;
+	private ObjectInputStream objectInput;
 	
 	
 	
@@ -33,8 +34,8 @@ public class ClientPatient implements Serializable{
 		try {	
 			
 			this.socket= new Socket (serverIP, port);
-			//this.outputStream = socket.getOutputStream();
 			this.objectOutput = new ObjectOutputStream(socket.getOutputStream());
+			this.objectInput = new ObjectInputStream(socket.getInputStream());
 			
 		} catch (IOException ex) {
             Logger.getLogger(ClientPatient.class.getName()).log(Level.SEVERE, null, ex);
@@ -52,19 +53,18 @@ public class ClientPatient implements Serializable{
         }
     }*/
 	
+	public void sendFunction(String function) throws IOException {
+		objectOutput.writeObject(function);
+	}
+	
 	public void sendPhysiologicalParameters(ArrayList<Integer> values) throws IOException{
-		
-		/*DataOutputStream dataOutput = new DataOutputStream(this.socket.getOutputStream());
-		dataOutput.writeInt(values.size());
-		for(Integer value : values) {
-			dataOutput.writeInt(value);
-		}*/
-		
 		this.objectOutput.writeObject(values);
 	}
 	
-	public void checkPatient(String id/*, String password*/) throws IOException {
+	public Patient checkPatient(String id/*, String password*/) throws IOException, ClassNotFoundException {
 		objectOutput.writeObject(id);
+		Patient patient = (Patient) objectInput.readObject();
+		return patient;
 	}
 	
 	

@@ -59,12 +59,15 @@ public class AppDisplay extends JFrame {
 		logIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					client.checkPatient(userID.getText());
+					client.sendFunction("login");
+					Patient patient = client.checkPatient(userID.getText());
+					JFrame patientDisplay = new PatientDisplay(AppDisplay.this, patient);
+					patientDisplay.setVisible(true);
 				} catch (IOException e1) {
-					e1.printStackTrace();
+					e1.printStackTrace(); // TODO show warning/error
+				} catch (ClassNotFoundException e1) {
+					e1.printStackTrace(); //show warning/error
 				}
-				JFrame patientDisplay = new PatientDisplay(AppDisplay.this);
-				patientDisplay.setVisible(true);
 			}
 		});
 		logIn.setBounds(183, 187, 230, 23);

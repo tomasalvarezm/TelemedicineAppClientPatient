@@ -1,20 +1,10 @@
-//TODO Eliminate this class; would be handled from SignalRecording Class; already implemented and working
 
 package BITalino;
 
-
-import java.io.BufferedWriter;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.bluetooth.RemoteDevice;
-
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,10 +13,9 @@ public class BitalinoDemo extends Thread{
 
     private Frame[] frame;
     private BITalino bitalino;
-    private ArrayList<Integer> dataFromBitalino; //TODO comprobar
+    private ArrayList<Integer> dataFromBitalino;
     private String macAddress;
     public static boolean record = true;
-    private int i = 0;
     
 
     public BitalinoDemo(String macAddress) {
@@ -82,17 +71,6 @@ public class BitalinoDemo extends Thread{
                 Logger.getLogger(BitalinoDemo.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        /*while(record) {
-        	this.dataFromBitalino.add(i);
-        	//System.out.println(dataFromBitalino.get(i));
-        	i++;
-        	try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-        }*/
     }
 
 	public ArrayList<Integer> getDataFromBitalino() {
