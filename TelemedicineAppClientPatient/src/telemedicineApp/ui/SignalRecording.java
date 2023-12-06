@@ -21,6 +21,8 @@ import javax.bluetooth.RemoteDevice;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
@@ -30,6 +32,7 @@ import javax.swing.SwingWorker;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
@@ -55,7 +58,7 @@ public class SignalRecording extends JFrame {
 	
 
 	
-	public SignalRecording(JFrame patientDisplay, Patient patient) {
+	public SignalRecording(JFrame patientDisplay, ClientPatient client, Patient patient) {
 		patientDisplay.setVisible(false);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -127,6 +130,22 @@ public class SignalRecording extends JFrame {
 		lblNewLabel_1.setToolTipText("Fromat XX:XX:XX:XX:XX:XX ");
 		lblNewLabel_1.setBounds(27, 34, 96, 14);
 		contentPane.add(lblNewLabel_1);
+		
+		JButton send = new JButton("Send signal");
+		send.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				try {
+					client.sendFunction("signal");
+					
+				} catch(IOException ex) {
+					JOptionPane.showMessageDialog(SignalRecording.this, "Problems connecting with server", "Message",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		send.setBounds(181, 334, 89, 23);
+		contentPane.add(send);
 	}
 	
 	private boolean checkMACaddress(String macAddress) {
@@ -135,5 +154,4 @@ public class SignalRecording extends JFrame {
         Matcher matcher = pattern.matcher(macAddress);
         return matcher.matches();
 	}
-	
 }

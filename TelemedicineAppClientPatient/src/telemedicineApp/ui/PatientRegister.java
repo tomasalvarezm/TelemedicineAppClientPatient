@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import java.awt.Image;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,6 +16,7 @@ import javax.swing.border.EmptyBorder;
 
 import com.toedter.calendar.JCalendar;
 
+import connection.ClientPatient;
 import telemedicineApp.pojos.Patient;
 import telemedicineApp.pojos.Sex;
 
@@ -49,7 +51,7 @@ public class PatientRegister extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PatientRegister(JFrame appDisplay) {
+	public PatientRegister(JFrame appDisplay, ClientPatient client) {
 		appDisplay.setVisible(false);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -184,32 +186,39 @@ public class PatientRegister extends JFrame {
 			public void mouseReleased(MouseEvent e) {
 				if (!validateEmail(email.getText())) {
 					JOptionPane.showMessageDialog(PatientRegister.this, "Invalid email", "Message",
-							JOptionPane.ERROR_MESSAGE);
+							JOptionPane.WARNING_MESSAGE);
 				} else if(dob == null){
 					JOptionPane.showMessageDialog(PatientRegister.this, "Select your date of birth", "Message",
 							JOptionPane.WARNING_MESSAGE);
 				} else {
 					try {
-						Patient p = new Patient();
-						p.setId(id.getText());
-						p.setName(name.getText());
-						p.setEmail(email.getText());
-						p.setPhoneNumber(Integer.parseInt(phoneNumber.getText()));
-						p.setDob(dob);
-						p.setAge(getAge(dob));
+						Patient patient = new Patient();
+						patient.setId(id.getText());
+						patient.setName(name.getText());
+						patient.setEmail(email.getText());
+						patient.setPhoneNumber(Integer.parseInt(phoneNumber.getText()));
+						patient.setDob(dob);
+						patient.setAge(getAge(dob));
 						if(sex.getSelectedItem().toString().equalsIgnoreCase("male")) {
-							p.setSex(Sex.MALE);
+							patient.setSex(Sex.MALE);
 						} else {
-							p.setSex(Sex.FEMALE);
+							patient.setSex(Sex.FEMALE);
 						}
-						System.out.println(p);
+						
+						client.sendFunction("register");
+						
+						if(client.registerPatient(patient)) {
+							JOptionPane.showMessageDialog(PatientRegister.this, "Successfully registered", "Message",
+									JOptionPane.OK_OPTION);
+						}
 						
 					} catch (NumberFormatException ex) {
 						JOptionPane.showMessageDialog(PatientRegister.this, "Invalid id or pone number", "Message",
+								JOptionPane.WARNING_MESSAGE);
+					} catch (IOException e1) {
+						JOptionPane.showMessageDialog(PatientRegister.this, "Problems connecting with server", "Message",
 								JOptionPane.ERROR_MESSAGE);
 					}
-					
-					
 					
 				}
 			}
@@ -221,7 +230,6 @@ public class PatientRegister extends JFrame {
 	}
 	
 	private boolean validateEmail(String email) {
-		//Pattern pattern = Pattern.compile("([a-z0-9]+(\\.?[a-z0-9])*)+@(([a-z]+)\\.([a-z]+))+"); // String of available characters and pattern
 		Pattern pattern = Pattern.compile("([a-z0-9]+(\\.?[a-z0-9])*)+@([a-z]+(\\.[a-z]+)+)"); // String of available characters and pattern
 		Matcher matcher = pattern.matcher(email);
 		return matcher.find();

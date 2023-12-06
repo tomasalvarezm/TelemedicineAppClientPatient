@@ -1,6 +1,7 @@
 package telemedicineApp.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Image;
 
@@ -19,6 +20,7 @@ import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
+import javax.swing.JSeparator;
 
 public class AppDisplay extends JFrame {
 
@@ -61,7 +63,7 @@ public class AppDisplay extends JFrame {
 				try {
 					client.sendFunction("login");
 					Patient patient = client.checkPatient(userID.getText());
-					JFrame patientDisplay = new PatientDisplay(AppDisplay.this, patient);
+					JFrame patientDisplay = new PatientDisplay(AppDisplay.this, client, patient);
 					patientDisplay.setVisible(true);
 				} catch (IOException e1) {
 					e1.printStackTrace(); // TODO show warning/error
@@ -70,11 +72,13 @@ public class AppDisplay extends JFrame {
 				}
 			}
 		});
-		logIn.setBounds(183, 187, 230, 23);
+		logIn.setBounds(183, 190, 230, 23);
 		contentPane.add(logIn);
 		
 		userID = new JTextField();
 		userID.setBounds(173, 125, 269, 20);
+		userID.setBackground(new Color(240, 240, 240));
+		userID.setBorder(null);
 		contentPane.add(userID);
 		userID.setColumns(10);
 		
@@ -83,11 +87,13 @@ public class AppDisplay extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblPassword = new JLabel("Password :");
-		lblPassword.setBounds(93, 159, 77, 14);
+		lblPassword.setBounds(93, 159, 63, 14);
 		contentPane.add(lblPassword);
 		
 		password = new JPasswordField();
 		password.setBounds(173, 156, 269, 20);
+		password.setBackground(new Color(240, 240, 240));
+		password.setBorder(null);
 		contentPane.add(password);
 		
 		JLabel imgLabel = new JLabel("");
@@ -99,11 +105,11 @@ public class AppDisplay extends JFrame {
 		JButton register = new JButton("Register");
 		register.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFrame patientRegister = new PatientRegister(AppDisplay.this);
+				JFrame patientRegister = new PatientRegister(AppDisplay.this, client);
 				patientRegister.setVisible(true);
 			}
 		});
-		register.setBounds(183, 221, 230, 23);
+		register.setBounds(183, 224, 230, 23);
 		contentPane.add(register);
 		
 		JButton manual = new JButton("");
@@ -115,5 +121,13 @@ public class AppDisplay extends JFrame {
 		});
 		manual.setBounds(267, 269, 73, 54);
 		contentPane.add(manual);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(173, 145, 269, 2);
+		contentPane.add(separator);
+		
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setBounds(173, 176, 269, 2);
+		contentPane.add(separator_1);
 	}
 }

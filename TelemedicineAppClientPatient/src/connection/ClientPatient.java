@@ -1,10 +1,5 @@
 package connection;
 
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -15,7 +10,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import BITalino.BitalinoDemo;
 import telemedicineApp.pojos.Patient;
 
 
@@ -43,22 +37,10 @@ public class ClientPatient implements Serializable{
 		
 	}
 	
-	//funcion para registrar a un paciente y mandarlo // sera lo mismo qmandar todo el paciente (sendPatient)?
-	/*public void registerPatient(Patient patient) {
-        try {
-            this.objectOutput.writeObject(patient);
-            this.objectOutput.flush();
-        } catch (IOException ex) {
-            Logger.getLogger(ClientPatient.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }*/
 	
+	//METHODS
 	public void sendFunction(String function) throws IOException {
 		objectOutput.writeObject(function);
-	}
-	
-	public void sendPhysiologicalParameters(ArrayList<Integer> values) throws IOException{
-		this.objectOutput.writeObject(values);
 	}
 	
 	public Patient checkPatient(String id/*, String password*/) throws IOException, ClassNotFoundException {
@@ -67,7 +49,18 @@ public class ClientPatient implements Serializable{
 		return patient;
 	}
 	
+	public boolean registerPatient(Patient patient) throws IOException {
+		objectOutput.writeObject(patient);
+		return objectInput.readBoolean();
+	}
 	
+	public void sendPhysiologicalParameters(ArrayList<Integer> values) throws IOException{
+		this.objectOutput.writeObject(values);
+	}
+	
+	
+	
+	//CLOSING CONNECTION
 	//Should be done when logout?
 	private static void releaseResources(OutputStream outputStream, Socket socket) {
         try {
@@ -87,7 +80,7 @@ public class ClientPatient implements Serializable{
 
     }
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		
 		ClientPatient client = new ClientPatient("localhost", 9000);
 		
@@ -108,6 +101,6 @@ public class ClientPatient implements Serializable{
         }
 		
 		releaseResources(client.objectOutput, client.socket);
-	}
+	}*/
 	
 }

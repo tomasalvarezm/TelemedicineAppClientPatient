@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import connection.ClientPatient;
 import telemedicineApp.pojos.Patient;
 
 import javax.swing.JLabel;
@@ -24,7 +25,7 @@ public class PatientDisplay extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PatientDisplay(JFrame appDisplay, Patient patient) {
+	public PatientDisplay(JFrame appDisplay, ClientPatient client, Patient patient) {
 		appDisplay.setVisible(false);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,7 +40,7 @@ public class PatientDisplay extends JFrame {
 		uploadSignal.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		uploadSignal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFrame signalRecording = new SignalRecording(PatientDisplay.this, patient);
+				JFrame signalRecording = new SignalRecording(PatientDisplay.this, client, patient);
 				signalRecording.setVisible(true);
 			}
 		});
