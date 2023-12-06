@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import telemedicineApp.pojos.MedicalHistory;
 import telemedicineApp.pojos.Patient;
 
 
@@ -54,8 +55,14 @@ public class ClientPatient implements Serializable{
 		return objectInput.readBoolean();
 	}
 	
-	public void sendPhysiologicalParameters(ArrayList<Integer> values) throws IOException{
+	public boolean newMedicalHistory(MedicalHistory medicalHistory) throws IOException {
+		objectOutput.writeObject(medicalHistory);
+		return objectInput.readBoolean();
+	}
+	
+	public boolean sendPhysiologicalParameters(ArrayList<Integer> values) throws IOException{
 		this.objectOutput.writeObject(values);
+		return objectInput.readBoolean();
 	}
 	
 	

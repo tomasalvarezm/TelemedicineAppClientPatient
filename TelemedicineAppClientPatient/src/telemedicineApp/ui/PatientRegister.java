@@ -1,7 +1,5 @@
 package telemedicineApp.ui;
 
-import java.awt.BorderLayout;
-
 import java.awt.Image;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -44,7 +42,6 @@ public class PatientRegister extends JFrame {
 	private JTextField phoneNumber;
 	private JComboBox sex;
 	private LocalDate dob;
-	//private int age;
 	private JCalendar calendar;
 	private JPasswordField passwordField;
 	
@@ -207,6 +204,7 @@ public class PatientRegister extends JFrame {
 						
 						client.sendFunction("register");
 						
+						//check if already exists
 						if(client.registerPatient(patient)) {
 							JOptionPane.showMessageDialog(PatientRegister.this, "Successfully registered", "Message",
 									JOptionPane.OK_OPTION);

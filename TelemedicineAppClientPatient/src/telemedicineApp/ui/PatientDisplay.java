@@ -48,6 +48,12 @@ public class PatientDisplay extends JFrame {
 		contentPane.add(uploadSignal);
 		
 		JButton changeSymptoms = new JButton("Modify my symptoms");
+		changeSymptoms.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame medicalHistory = new MedicalHistoryUpdate(PatientDisplay.this, client, patient);
+				medicalHistory.setVisible(true);
+			}
+		});
 		changeSymptoms.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		changeSymptoms.setBounds(169, 143, 178, 46);
 		contentPane.add(changeSymptoms);

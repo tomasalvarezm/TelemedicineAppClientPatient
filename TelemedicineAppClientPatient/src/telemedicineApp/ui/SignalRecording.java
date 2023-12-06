@@ -136,7 +136,7 @@ public class SignalRecording extends JFrame {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				try {
-					client.sendFunction("signal");
+					client.sendFunction("uploadsignal");
 					
 				} catch(IOException ex) {
 					JOptionPane.showMessageDialog(SignalRecording.this, "Problems connecting with server", "Message",
