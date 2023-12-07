@@ -15,6 +15,7 @@ import BITalino.BITalinoException;
 import BITalino.BitalinoDemo;
 import BITalino.Frame;
 import connection.ClientPatient;
+import telemedicineApp.pojos.BitalinoSignal;
 import telemedicineApp.pojos.Patient;
 
 import javax.bluetooth.RemoteDevice;
@@ -55,6 +56,7 @@ public class SignalRecording extends JFrame {
 	private ArrayList<Integer> dataFromBitalino = new ArrayList<Integer>();
     private BitalinoDemo bitalinoThread;
 	private LocalTime startTime;
+	private String timeRecording;
 	
 
 	
@@ -100,7 +102,7 @@ public class SignalRecording extends JFrame {
 				
 				long minutes = ChronoUnit.MINUTES.between(startTime, currentTime);
 				long seconds = ChronoUnit.SECONDS.between(startTime, currentTime);
-				String timeRecording = minutes + " minutes" + seconds + " seconds";
+				timeRecording = minutes + " minutes" + seconds + " seconds";
 				dataFromBitalino = bitalinoThread.getDataFromBitalino();
 				
 			}
@@ -137,6 +139,12 @@ public class SignalRecording extends JFrame {
 			public void mouseReleased(MouseEvent e) {
 				try {
 					client.sendFunction("uploadsignal");
+					BitalinoSignal bitalinoSignal = new BitalinoSignal();
+					bitalinoSignal.setPatient_id(patient.getId());
+					bitalinoSignal.setSignal_duration(timeRecording);
+					bitalinoSignal.setDateSignal(LocalDate.now());
+					bitalinoSignal.setData(dataFromBitalino);
+					client.sendPhysiologicalParameters(bitalinoSignal);
 					
 				} catch(IOException ex) {
 					JOptionPane.showMessageDialog(SignalRecording.this, "Problems connecting with server", "Message",

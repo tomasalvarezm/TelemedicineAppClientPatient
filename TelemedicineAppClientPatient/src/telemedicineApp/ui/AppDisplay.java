@@ -48,8 +48,8 @@ public class AppDisplay extends JFrame {
 	 */
 	public AppDisplay() {
 		
-		client = new ClientPatient("localhost", 9000);
-
+		client = new ClientPatient("10.60.88.54", 9000);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 639, 386);
 		contentPane = new JPanel();
