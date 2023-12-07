@@ -210,10 +210,10 @@ public class PatientRegister extends JFrame {
 						client.sendFunction("register");
 						
 						//check if already exists
-						if(!client.registerPatient(patient)) {
+						/*if(!client.registerPatient(patient)) {
 							JOptionPane.showMessageDialog(PatientRegister.this, "Successfully registered", "Message",
 									JOptionPane.OK_OPTION);
-						}
+						}*/
 						System.out.println("PORFAVOR");
 						appDisplay.setVisible(true);
 						System.out.println("SI");
