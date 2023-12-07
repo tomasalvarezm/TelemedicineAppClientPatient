@@ -13,6 +13,7 @@ import connection.ClientPatient;
 import telemedicineApp.pojos.Patient;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -63,9 +64,15 @@ public class AppDisplay extends JFrame {
 				try {
 					client.sendFunction("login");
 					Patient patient = client.checkPatient(userID.getText());
-					JFrame patientDisplay = new PatientDisplay(AppDisplay.this, client, patient);
-					patientDisplay.setVisible(true);
+					if(patient!=null) {
+						JFrame patientDisplay = new PatientDisplay(AppDisplay.this, client, patient);
+						patientDisplay.setVisible(true);	
+					}
+					JOptionPane.showMessageDialog(AppDisplay.this, "You need to register first!", "Message",
+							JOptionPane.WARNING_MESSAGE);
 				} catch (IOException e1) {
+					JOptionPane.showMessageDialog(AppDisplay.this, "Successfully registered", "Message",
+							JOptionPane.PLAIN_MESSAGE);
 					e1.printStackTrace(); // TODO show warning/error
 				} catch (ClassNotFoundException e1) {
 					e1.printStackTrace(); //show warning/error
