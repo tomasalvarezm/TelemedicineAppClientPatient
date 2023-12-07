@@ -1,14 +1,17 @@
 package telemedicineApp.pojos;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 
-public class BitalinoSignal {
+public class BitalinoSignal implements Serializable {
 	private Integer id; //AUTOINCREMENT
 	private String patient_id; //TEXT
 	private String signal_duration; //TEXT
 	private LocalDate dateSignal; //TEXT
 	private String filePath; //TEXT
+	private ArrayList<Integer> data;
 	
 	public BitalinoSignal(Integer id, String patient_id, String signal_duration, LocalDate date, String filePath) {
 		super();
@@ -17,13 +20,24 @@ public class BitalinoSignal {
 		this.signal_duration = signal_duration;
 		this.dateSignal = date;
 		this.filePath = filePath;
+		
 	}
+	
 	
 	public BitalinoSignal() {
 		super();
+		this.data=new ArrayList<Integer>();
 	}
 	
 	
+	public ArrayList<Integer> getData() {
+		return data;
+	}
+
+	public void setData(ArrayList<Integer> data) {
+		this.data = data;
+	}
+
 	public Integer getId() {
 		return id;
 	}
