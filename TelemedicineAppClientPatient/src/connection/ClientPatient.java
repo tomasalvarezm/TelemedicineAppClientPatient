@@ -56,7 +56,9 @@ public class ClientPatient implements Serializable{
 	
 	public boolean registerPatient(Patient patient) throws IOException {
 		objectOutput.writeObject(patient);
-		return objectInput.readBoolean();
+		boolean b = objectInput.readBoolean();
+		System.out.println(b);
+		return b;
 	}
 	
 	public boolean newMedicalHistory(MedicalHistory medicalHistory) throws IOException {

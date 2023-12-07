@@ -210,12 +210,15 @@ public class PatientRegister extends JFrame {
 						client.sendFunction("register");
 						
 						//check if already exists
-						if(client.registerPatient(patient)) {
+						if(!client.registerPatient(patient)) {
 							JOptionPane.showMessageDialog(PatientRegister.this, "Successfully registered", "Message",
 									JOptionPane.OK_OPTION);
 						}
-						PatientRegister.this.setVisible(false);
+						System.out.println("PORFAVOR");
 						appDisplay.setVisible(true);
+						System.out.println("SI");
+						PatientRegister.this.setVisible(false);
+						System.out.println("FUNCIONA");
 						
 					} catch (NumberFormatException ex) {
 						JOptionPane.showMessageDialog(PatientRegister.this, "Invalid id or pone number", "Message",
