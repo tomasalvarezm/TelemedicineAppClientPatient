@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import telemedicineApp.pojos.BitalinoSignal;
 import telemedicineApp.pojos.MedicalHistory;
 import telemedicineApp.pojos.Patient;
 
@@ -31,6 +32,9 @@ public class ClientPatient implements Serializable{
 			this.socket= new Socket (serverIP, port);
 			this.objectOutput = new ObjectOutputStream(socket.getOutputStream());
 			this.objectInput = new ObjectInputStream(socket.getInputStream());
+			
+			String role = "patient";
+			objectOutput.writeObject(role);
 			
 		} catch (IOException ex) {
             Logger.getLogger(ClientPatient.class.getName()).log(Level.SEVERE, null, ex);
@@ -60,8 +64,8 @@ public class ClientPatient implements Serializable{
 		return objectInput.readBoolean();
 	}
 	
-	public boolean sendPhysiologicalParameters(ArrayList<Integer> values) throws IOException{
-		this.objectOutput.writeObject(values);
+	public boolean sendPhysiologicalParameters(BitalinoSignal bitalinoSignal) throws IOException{
+		this.objectOutput.writeObject(bitalinoSignal);
 		return objectInput.readBoolean();
 	}
 	

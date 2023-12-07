@@ -15,6 +15,7 @@ import javax.swing.border.EmptyBorder;
 import com.toedter.calendar.JCalendar;
 
 import connection.ClientPatient;
+import telemedicineApp.pojos.Doctor;
 import telemedicineApp.pojos.Patient;
 import telemedicineApp.pojos.Sex;
 
@@ -201,7 +202,11 @@ public class PatientRegister extends JFrame {
 						} else {
 							patient.setSex(Sex.FEMALE);
 						}
-						
+						Doctor doctor = new Doctor();
+						doctor.setId("323563245T");
+						doctor.setName("Elena");
+						doctor.setSex(Sex.FEMALE);
+						patient.setDoctor(doctor);
 						client.sendFunction("register");
 						
 						//check if already exists
@@ -209,6 +214,8 @@ public class PatientRegister extends JFrame {
 							JOptionPane.showMessageDialog(PatientRegister.this, "Successfully registered", "Message",
 									JOptionPane.OK_OPTION);
 						}
+						PatientRegister.this.setVisible(false);
+						appDisplay.setVisible(true);
 						
 					} catch (NumberFormatException ex) {
 						JOptionPane.showMessageDialog(PatientRegister.this, "Invalid id or pone number", "Message",
