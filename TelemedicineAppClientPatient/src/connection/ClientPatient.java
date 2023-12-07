@@ -46,16 +46,19 @@ public class ClientPatient implements Serializable{
 	//METHODS
 	public void sendFunction(String function) throws IOException {
 		objectOutput.writeObject(function);
+		objectOutput.flush();
 	}
 	
 	public Patient checkPatient(String id/*, String password*/) throws IOException, ClassNotFoundException {
 		objectOutput.writeObject(id);
+		objectOutput.flush();
 		Patient patient = (Patient) objectInput.readObject();
 		return patient;
 	}
 	
 	public boolean registerPatient(Patient patient) throws IOException {
 		objectOutput.writeObject(patient);
+		objectOutput.flush();
 		boolean b = objectInput.readBoolean();
 		System.out.println(b);
 		return b;
@@ -63,11 +66,13 @@ public class ClientPatient implements Serializable{
 	
 	public boolean newMedicalHistory(MedicalHistory medicalHistory) throws IOException {
 		objectOutput.writeObject(medicalHistory);
+		objectOutput.flush();
 		return objectInput.readBoolean();
 	}
 	
 	public boolean sendPhysiologicalParameters(BitalinoSignal bitalinoSignal) throws IOException{
 		this.objectOutput.writeObject(bitalinoSignal);
+		objectOutput.flush();
 		return objectInput.readBoolean();
 	}
 	
