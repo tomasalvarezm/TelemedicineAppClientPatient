@@ -8,6 +8,7 @@ import connection.ClientPatient;
 import telemedicineApp.pojos.Patient;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -17,6 +18,9 @@ import java.awt.Image;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.SystemColor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 public class PatientDisplay extends JFrame {
 
@@ -73,18 +77,22 @@ public class PatientDisplay extends JFrame {
 		username.setBounds(253, 37, 156, 46);
 		contentPane.add(username);
 		
-	}
-	
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
+		JButton logout = new JButton("Log out");
+		logout.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
 				try {
-					PatientDisplay frame = new PatientDisplay();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
+					client.sendFunction("logout");
+					client.closeConnection();
+					System.exit(0);
+				} catch (IOException e1) {
+					JOptionPane.showMessageDialog(PatientDisplay.this, "Problems closing connection", "Message",
+							JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
-	}*/
+		logout.setBounds(10, 287, 89, 23);
+		contentPane.add(logout);
+		
+	}
 }
