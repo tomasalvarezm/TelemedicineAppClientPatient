@@ -59,9 +59,7 @@ public class ClientPatient implements Serializable{
 	public boolean registerPatient(Patient patient) throws IOException {
 		objectOutput.writeObject(patient);
 		objectOutput.flush();
-		boolean b = objectInput.readBoolean();
-		System.out.println(b);
-		return b;
+		return objectInput.readBoolean();
 	}
 	
 	public boolean newMedicalHistory(MedicalHistory medicalHistory) throws IOException {
@@ -97,28 +95,5 @@ public class ClientPatient implements Serializable{
         }
 
     }
-	
-	/*public static void main(String[] args) {
-		
-		ClientPatient client = new ClientPatient("localhost", 9000);
-		
-		ArrayList<Integer> signal = new ArrayList<Integer>();
-		for(int i = 500; i < 550; i++) {
-			signal.add(i);
-		}
-		String signalToSend = "";
-		for(Integer value : signal) {
-			signalToSend += Integer.toString(value) + "/n";
-		}
-		try {
-			
-			client.sendPhysiologicalParameters(signal);
-			
-		} catch (IOException ex) {
-            Logger.getLogger(ClientPatient.class.getName()).log(Level.SEVERE, null, ex);
-        }
-		
-		releaseResources(client.objectOutput, client.socket);
-	}*/
 	
 }

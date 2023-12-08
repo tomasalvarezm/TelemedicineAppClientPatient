@@ -105,7 +105,8 @@ public class MedicalHistoryUpdate extends JFrame {
 						
 						if(client.newMedicalHistory(medicalHistory)) {
 							JOptionPane.showMessageDialog(MedicalHistoryUpdate.this, "Medical history updated", "Message",
-									JOptionPane.OK_OPTION);
+									JOptionPane.PLAIN_MESSAGE);
+							//regresar al frame anterior
 						}
 					}catch(IOException ex) {
 						JOptionPane.showMessageDialog(MedicalHistoryUpdate.this, "Problems connecting with server", "Message",
@@ -173,17 +174,4 @@ public class MedicalHistoryUpdate extends JFrame {
 		}
 		return symptoms;
 	}
-	
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MedicalHistoryUpdate frame = new MedicalHistoryUpdate();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
 }

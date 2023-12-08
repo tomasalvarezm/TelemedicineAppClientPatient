@@ -182,7 +182,10 @@ public class PatientRegister extends JFrame {
 		register.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				if (!validateEmail(email.getText())) {
+				if (id == null) {
+					JOptionPane.showMessageDialog(PatientRegister.this, "Introduce your ID", "Message",
+							JOptionPane.WARNING_MESSAGE);
+				}else if (!validateEmail(email.getText())) {
 					JOptionPane.showMessageDialog(PatientRegister.this, "Invalid email", "Message",
 							JOptionPane.WARNING_MESSAGE);
 				} else if(dob == null){
@@ -202,11 +205,13 @@ public class PatientRegister extends JFrame {
 						} else {
 							patient.setSex(Sex.FEMALE);
 						}
+						//for testing
 						Doctor doctor = new Doctor();
 						doctor.setId("323563245T");
 						doctor.setName("Elena");
 						doctor.setSex(Sex.FEMALE);
 						patient.setDoctor(doctor);
+						
 						client.sendFunction("register");
 						
 						//check if already exists
@@ -214,14 +219,11 @@ public class PatientRegister extends JFrame {
 							JOptionPane.showMessageDialog(PatientRegister.this, "Successfully registered", "Message",
 									JOptionPane.PLAIN_MESSAGE);
 						}
-						System.out.println("PORFAVOR");
 						appDisplay.setVisible(true);
-						System.out.println("SI");
 						PatientRegister.this.setVisible(false);
-						System.out.println("FUNCIONA");
 						
 					} catch (NumberFormatException ex) {
-						JOptionPane.showMessageDialog(PatientRegister.this, "Invalid id or pone number", "Message",
+						JOptionPane.showMessageDialog(PatientRegister.this, "Invalid phone number", "Message",
 								JOptionPane.WARNING_MESSAGE);
 					} catch (IOException e1) {
 						JOptionPane.showMessageDialog(PatientRegister.this, "Problems connecting with server", "Message",
