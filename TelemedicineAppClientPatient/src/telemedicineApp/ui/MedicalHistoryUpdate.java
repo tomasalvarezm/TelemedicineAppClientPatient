@@ -106,7 +106,8 @@ public class MedicalHistoryUpdate extends JFrame {
 						if(client.newMedicalHistory(medicalHistory)) {
 							JOptionPane.showMessageDialog(MedicalHistoryUpdate.this, "Medical history updated", "Message",
 									JOptionPane.PLAIN_MESSAGE);
-							//regresar al frame anterior
+							patientDisplay.setVisible(true);
+							MedicalHistoryUpdate.this.setVisible(false);
 						}
 					}catch(IOException ex) {
 						JOptionPane.showMessageDialog(MedicalHistoryUpdate.this, "Problems connecting with server", "Message",

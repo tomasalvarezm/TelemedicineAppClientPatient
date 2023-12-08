@@ -34,7 +34,6 @@ public class BitalinoDemo extends Thread{
             Vector<RemoteDevice> devices = bitalino.findDevices();
             System.out.println(devices);
 
-            //String macAddress = "20:17:11:20:52:32"; //-> this is our bitalino, just for testing
             
             int SamplingRate = 10;
             bitalino.open(this.macAddress, SamplingRate);
@@ -51,7 +50,6 @@ public class BitalinoDemo extends Thread{
                 //Save the samples
                 for (int i = 0; i < frame.length; i++) {
                     dataFromBitalino.add(frame[i].analog[0]);
-                    System.out.println(dataFromBitalino.get(i));
                 }
             }
             

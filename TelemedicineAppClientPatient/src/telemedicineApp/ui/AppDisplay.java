@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import connection.ClientPatient;
+import telemedicineApp.pojos.Doctor;
 import telemedicineApp.pojos.Patient;
 
 import javax.swing.JLabel;
@@ -17,6 +18,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
@@ -110,9 +112,19 @@ public class AppDisplay extends JFrame {
 		contentPane.add(imgLabel);
 		
 		JButton register = new JButton("Register");
-		register.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JFrame patientRegister = new PatientRegister(AppDisplay.this, client);
+		register.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				ArrayList<Doctor> doctors = new ArrayList<Doctor>();
+				try {
+					client.sendFunction("register");
+					doctors = (ArrayList<Doctor>) client.getAllDoctors();
+					
+				} catch (IOException | ClassNotFoundException e1) {
+					JOptionPane.showMessageDialog(AppDisplay.this, "Problems connecting with server", "Message",
+							JOptionPane.ERROR_MESSAGE);
+				}
+				JFrame patientRegister = new PatientRegister(AppDisplay.this, client, doctors);
 				patientRegister.setVisible(true);
 			}
 		});

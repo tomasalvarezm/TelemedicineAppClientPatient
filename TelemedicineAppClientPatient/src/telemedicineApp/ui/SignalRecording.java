@@ -146,7 +146,8 @@ public class SignalRecording extends JFrame {
 					bitalinoSignal.setData(dataFromBitalino);
 					
 					client.sendPhysiologicalParameters(bitalinoSignal);
-					//regresar al frame anterior
+					patientDisplay.setVisible(true);
+					SignalRecording.this.setVisible(false);
 				} catch(IOException ex) {
 					JOptionPane.showMessageDialog(SignalRecording.this, "Problems connecting with server", "Message",
 							JOptionPane.ERROR_MESSAGE);

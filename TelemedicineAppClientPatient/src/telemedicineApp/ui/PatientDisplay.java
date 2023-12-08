@@ -68,13 +68,13 @@ public class PatientDisplay extends JFrame {
 		lblWelcome.setBounds(137, 37, 114, 46);
 		contentPane.add(lblWelcome);
 		
-		JLabel username = new JLabel(", User !");
+		JLabel username = new JLabel(", " + patient.getName());
 		username.setToolTipText("");
 		username.setLabelFor(this);
 		username.setForeground(Color.BLACK);
 		username.setBackground(Color.WHITE);
 		username.setFont(new Font("Arial", Font.BOLD, 20));
-		username.setBounds(253, 37, 156, 46);
+		username.setBounds(253, 37, 202, 46);
 		contentPane.add(username);
 		
 		JButton logout = new JButton("Log out");

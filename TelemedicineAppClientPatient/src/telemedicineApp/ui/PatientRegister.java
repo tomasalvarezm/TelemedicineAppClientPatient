@@ -5,6 +5,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -45,12 +46,18 @@ public class PatientRegister extends JFrame {
 	private LocalDate dob;
 	private JCalendar calendar;
 	private JPasswordField passwordField;
+	private JComboBox doctorBox;
 	
 	/**
 	 * Create the frame.
 	 */
-	public PatientRegister(JFrame appDisplay, ClientPatient client) {
+	public PatientRegister(JFrame appDisplay, ClientPatient client, ArrayList<Doctor> doctors) {
 		appDisplay.setVisible(false);
+		/*try {
+			client.sendFunction("register");
+		} catch (IOException e2) {
+			e2.printStackTrace();
+		}*/
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 636, 400);
@@ -205,14 +212,11 @@ public class PatientRegister extends JFrame {
 						} else {
 							patient.setSex(Sex.FEMALE);
 						}
-						//for testing
-						Doctor doctor = new Doctor();
-						doctor.setId("doctorprueba");
-						doctor.setName("doctor");
-						doctor.setSex(Sex.MALE);
-						patient.setDoctor(doctor);
 						
-						client.sendFunction("register");
+						//client.sendFunction("register");
+						
+						Doctor doctor = client.getDoctorByName(doctorBox.getSelectedItem().toString());
+						patient.setDoctor(doctor);
 						
 						//check if already exists
 						if(client.registerPatient(patient)) {
@@ -225,11 +229,10 @@ public class PatientRegister extends JFrame {
 					} catch (NumberFormatException ex) {
 						JOptionPane.showMessageDialog(PatientRegister.this, "Invalid phone number", "Message",
 								JOptionPane.WARNING_MESSAGE);
-					} catch (IOException e1) {
+					} catch (IOException | ClassNotFoundException e1) {
 						JOptionPane.showMessageDialog(PatientRegister.this, "Problems connecting with server", "Message",
 								JOptionPane.ERROR_MESSAGE);
 					}
-					
 				}
 			}
 		});
@@ -242,9 +245,12 @@ public class PatientRegister extends JFrame {
 		lblDoctor.setBounds(21, 266, 65, 16);
 		contentPane.add(lblDoctor);
 		
-		JComboBox doctor = new JComboBox();
-		doctor.setBounds(112, 263, 95, 22);
-		contentPane.add(doctor);
+		doctorBox = new JComboBox();
+		doctorBox.setBounds(112, 263, 95, 22);
+		contentPane.add(doctorBox);
+		for(Doctor d : doctors) {
+			doctorBox.addItem(d.getName());
+		}
 	}
 	
 	private boolean validateEmail(String email) {

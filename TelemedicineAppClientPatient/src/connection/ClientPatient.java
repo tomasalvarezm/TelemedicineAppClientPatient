@@ -5,10 +5,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import telemedicineApp.pojos.BitalinoSignal;
+import telemedicineApp.pojos.Doctor;
 import telemedicineApp.pojos.MedicalHistory;
 import telemedicineApp.pojos.Patient;
 
@@ -65,6 +67,13 @@ public class ClientPatient implements Serializable {
 		objectOutput.flush();
 		return objectInput.readBoolean();
 	}
+	
+	public Doctor getDoctorByName(String name) throws IOException, ClassNotFoundException {
+		objectOutput.writeObject(name);
+		objectOutput.flush();
+		Doctor doctor = (Doctor) objectInput.readObject();
+		return doctor;
+	}
 
 	public boolean newMedicalHistory(MedicalHistory medicalHistory) throws IOException {
 		objectOutput.writeObject(medicalHistory);
@@ -73,9 +82,14 @@ public class ClientPatient implements Serializable {
 	}
 
 	public boolean sendPhysiologicalParameters(BitalinoSignal bitalinoSignal) throws IOException {
-		this.objectOutput.writeObject(bitalinoSignal);
+		objectOutput.writeObject(bitalinoSignal);
 		objectOutput.flush();
 		return objectInput.readBoolean();
+	}
+	
+	public ArrayList<Doctor> getAllDoctors() throws ClassNotFoundException, IOException{
+		ArrayList<Doctor> doctors = (ArrayList<Doctor>) objectInput.readObject();
+		return doctors;
 	}
 
 }
