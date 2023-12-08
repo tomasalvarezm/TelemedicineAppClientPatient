@@ -53,7 +53,7 @@ public class PatientRegister extends JFrame {
 		appDisplay.setVisible(false);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 636, 386);
+		setBounds(100, 100, 636, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -173,7 +173,7 @@ public class PatientRegister extends JFrame {
 				PatientRegister.this.setVisible(false);
 			}
 		});
-		back.setBounds(21, 318, 77, 18);
+		back.setBounds(21, 332, 77, 18);
 		Image backImg = new ImageIcon(this.getClass().getResource("/back.png")).getImage();
 		back.setIcon(new ImageIcon(backImg));
 		contentPane.add(back);
@@ -207,9 +207,9 @@ public class PatientRegister extends JFrame {
 						}
 						//for testing
 						Doctor doctor = new Doctor();
-						doctor.setId("323563245T");
-						doctor.setName("Elena");
-						doctor.setSex(Sex.FEMALE);
+						doctor.setId("doctorprueba");
+						doctor.setName("doctor");
+						doctor.setSex(Sex.MALE);
 						patient.setDoctor(doctor);
 						
 						client.sendFunction("register");
@@ -233,10 +233,18 @@ public class PatientRegister extends JFrame {
 				}
 			}
 		});
-		register.setBounds(520, 316, 90, 20);
+		register.setBounds(520, 330, 90, 20);
 		Image registerImg = new ImageIcon(this.getClass().getResource("/register.png")).getImage();
 		register.setIcon(new ImageIcon(registerImg));
 		contentPane.add(register);
+		
+		JLabel lblDoctor = new JLabel("Doctor :");
+		lblDoctor.setBounds(21, 266, 65, 16);
+		contentPane.add(lblDoctor);
+		
+		JComboBox doctor = new JComboBox();
+		doctor.setBounds(112, 263, 95, 22);
+		contentPane.add(doctor);
 	}
 	
 	private boolean validateEmail(String email) {

@@ -30,6 +30,7 @@ public class ClientPatient implements Serializable {
 
 			String role = "patient";
 			objectOutput.writeObject(role);
+			objectOutput.flush();
 
 		} catch (IOException ex) {
 			Logger.getLogger(ClientPatient.class.getName()).log(Level.SEVERE, null, ex);
