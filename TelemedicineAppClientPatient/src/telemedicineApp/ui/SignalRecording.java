@@ -54,7 +54,7 @@ public class SignalRecording extends JFrame {
 	private JTextField macAddress;
 	
 	private ArrayList<Integer> dataFromBitalino = new ArrayList<Integer>();
-    private BitalinoDemo bitalinoThread;
+    private BitalinoDemo bitalinoThread; //To manage the start and stop of the bitalino recording we use threads
 	private LocalTime startTime;
 	private String timeRecording;
 	
@@ -78,7 +78,7 @@ public class SignalRecording extends JFrame {
 				startTime = LocalTime.now();
 				bitalinoThread = new BitalinoDemo(macAddress.getText());
 				bitalinoThread.setDaemon(true);
-				bitalinoThread.start();
+				bitalinoThread.start(); 
 			} 
 			@Override
 			public void mousePressed(MouseEvent e) {

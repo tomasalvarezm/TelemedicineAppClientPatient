@@ -101,8 +101,9 @@ public class MedicalHistoryUpdate extends JFrame {
 					}
 					try {
 						
-						client.sendFunction("modifysymptoms");
+						client.sendFunction("modifysymptoms"); //message "modifysymptoms" sent to server
 						
+						//To send to the server the MedicalHistory updated: 
 						if(client.newMedicalHistory(medicalHistory)) {
 							JOptionPane.showMessageDialog(MedicalHistoryUpdate.this, "Medical history updated", "Message",
 									JOptionPane.PLAIN_MESSAGE);

@@ -30,6 +30,7 @@ public class ClientPatient implements Serializable {
 			this.objectOutput = new ObjectOutputStream(socket.getOutputStream());
 			this.objectInput = new ObjectInputStream(socket.getInputStream());
 
+			//when initiating the program as patient the server receives the "patient" message to know the role of the client
 			String role = "patient";
 			objectOutput.writeObject(role);
 			objectOutput.flush();
@@ -50,6 +51,8 @@ public class ClientPatient implements Serializable {
 	}
 
 	// METHODS
+	
+	//to specify what the user will do: register, login, select medication, update symptoms, record signal.
 	public void sendFunction(String function) throws IOException {
 		objectOutput.writeObject(function);
 		objectOutput.flush();
@@ -75,6 +78,7 @@ public class ClientPatient implements Serializable {
 		return doctor;
 	}
 
+	//This method sends to the server the new Medical History (medication,symptoms) updated.
 	public boolean newMedicalHistory(MedicalHistory medicalHistory) throws IOException {
 		objectOutput.writeObject(medicalHistory);
 		objectOutput.flush();

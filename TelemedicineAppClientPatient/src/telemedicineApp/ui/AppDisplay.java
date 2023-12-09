@@ -52,7 +52,7 @@ public class AppDisplay extends JFrame {
 	 */
 	public AppDisplay() {
 		
-		client = new ClientPatient("localhost", 9000);
+		client = new ClientPatient("localhost", 9000); 
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 639, 386);
@@ -66,7 +66,7 @@ public class AppDisplay extends JFrame {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				try {
-					client.sendFunction("login");
+					client.sendFunction("login");//message "login" sent to server
 					Patient patient = client.checkPatient(userID.getText());
 					if(patient != null) {
 						JFrame patientDisplay = new PatientDisplay(AppDisplay.this, client, patient);
@@ -117,7 +117,7 @@ public class AppDisplay extends JFrame {
 			public void mouseReleased(MouseEvent e) {
 				ArrayList<Doctor> doctors = new ArrayList<Doctor>();
 				try {
-					client.sendFunction("register");
+					client.sendFunction("register");//message "register" sent to server
 					doctors = (ArrayList<Doctor>) client.getAllDoctors();
 					
 				} catch (IOException | ClassNotFoundException e1) {

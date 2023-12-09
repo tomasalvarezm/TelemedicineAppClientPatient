@@ -82,6 +82,7 @@ public class PatientDisplay extends JFrame {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				try {
+					//when the user logs out we close the connection with the server
 					client.sendFunction("logout");
 					client.closeConnection();
 					System.exit(0);
