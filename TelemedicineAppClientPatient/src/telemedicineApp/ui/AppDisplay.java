@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.awt.Image;
 
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -129,6 +130,8 @@ public class AppDisplay extends JFrame {
 		manual.setIcon(new ImageIcon(manualImg));
 		manual.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				JFrame instructions = new Instructions(AppDisplay.this);
+				instructions.setVisible(true);
 			}
 		});
 		manual.setBounds(267, 269, 73, 54);
@@ -145,7 +148,7 @@ public class AppDisplay extends JFrame {
 		lblNewLabel_1.setBounds(109, 43, 192, 59);
 		contentPane.add(lblNewLabel_1);
 
-		// CLOSING CONNECTION WHEN CLOSING FRAME
+		// CLOSING CONNECTION WHEN EXIT
 		WindowListener exitListener = (WindowListener) new WindowAdapter() {
 
 			@Override

@@ -57,7 +57,7 @@ public class PatientRegister extends JFrame {
 		setTitle("Patient");
 		appDisplay.setVisible(false);
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 636, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -235,7 +235,6 @@ public class PatientRegister extends JFrame {
 					int month = calendar.getMonthChooser().getMonth() + 1; //Don't know why it gives the month value minus one
 					int day = calendar.getDayChooser().getDay();
 					dob = LocalDate.of(year, month, day);
-					System.out.println(dob);
 				}
 			}
 		});
@@ -253,9 +252,10 @@ public class PatientRegister extends JFrame {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				try {
-					client.closeConnection();
+				    client.sendFunction("back");
+				    appDisplay.setVisible(true);
 				} catch (IOException e1) {
-					JOptionPane.showMessageDialog(PatientRegister.this, "Problems closing connection", "Message",
+					JOptionPane.showMessageDialog(PatientRegister.this, "Problems connecting with server", "Message",
 							JOptionPane.ERROR_MESSAGE);
 				}
 			}

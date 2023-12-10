@@ -1,0 +1,25 @@
+PATIENT’S INSTRUCTIONS:
+
+If it’s the first time you access the application, you will need to register as a new patient clicking 
+in the “REGISTER” button. Then, a new screen will appear, where you will have to enter both, your 
+personal and contact information. 
+
+Once you are registered, you will be able to log in by typing your ID.
+ 
+Then, you will access a new screen in which you can conduct the following action:
+
+- Modify my symptoms:
+
+  - Select the medication you are taking at the moment. 
+  - Choose symptoms: Select all the different symptoms or side effects that you are experiencing 
+    while taking such medication.
+ 
+- Upload signal:
+
+    When selecting this option, you will access a new screen where you can start and stop the
+    signal recording. First, place the electrodes (two on the muscular belly of the thumb and
+    the black one on the triceps). Then, start your Bitalino device and start recording the
+    signal by clicking in the “START” button. Once the time is over, press the “STOP” button.
+    Finally, click on send to send the signal to your doctor. 
+
+After completing all this information, you can exit the application safely. 
