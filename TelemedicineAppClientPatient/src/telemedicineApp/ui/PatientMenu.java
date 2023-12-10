@@ -20,18 +20,21 @@ import java.awt.EventQueue;
 import java.awt.SystemColor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.IOException;
 
-public class PatientDisplay extends JFrame {
+public class PatientMenu extends JFrame {
 
 	private JPanel contentPane;
 
 	/**
 	 * Create the frame.
 	 */
-	public PatientDisplay(JFrame appDisplay, ClientPatient client, Patient patient) {
+	public PatientMenu(JFrame appDisplay, ClientPatient client, Patient patient) {
 		appDisplay.setVisible(false);
-		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 562, 360);
 		contentPane = new JPanel();
@@ -39,61 +42,76 @@ public class PatientDisplay extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JButton uploadSignal = new JButton("Upload Signal");
 		uploadSignal.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		uploadSignal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFrame signalRecording = new SignalRecording(PatientDisplay.this, client, patient);
+				JFrame signalRecording = new SignalRecording(PatientMenu.this, client, patient);
 				signalRecording.setVisible(true);
 			}
 		});
-		uploadSignal.setBounds(169, 221, 178, 46);
+		uploadSignal.setBounds(171, 202, 178, 46);
 		contentPane.add(uploadSignal);
-		
+
 		JButton changeSymptoms = new JButton("Modify my symptoms");
 		changeSymptoms.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFrame medicalHistory = new MedicalHistoryUpdate(PatientDisplay.this, client, patient);
+				JFrame medicalHistory = new MedicalHistoryUpdate(PatientMenu.this, client, patient);
 				medicalHistory.setVisible(true);
 			}
 		});
 		changeSymptoms.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		changeSymptoms.setBounds(169, 143, 178, 46);
+		changeSymptoms.setBounds(171, 122, 178, 46);
 		contentPane.add(changeSymptoms);
-		
-		JLabel lblWelcome = new JLabel("");
 		Image welcolmeImg = new ImageIcon(this.getClass().getResource("/welcome.png")).getImage();
-		lblWelcome.setIcon(new ImageIcon(welcolmeImg));
-		lblWelcome.setBounds(137, 37, 114, 46);
-		contentPane.add(lblWelcome);
-		
-		JLabel username = new JLabel(", " + patient.getName());
-		username.setToolTipText("");
-		username.setLabelFor(this);
-		username.setForeground(Color.BLACK);
-		username.setBackground(Color.WHITE);
-		username.setFont(new Font("Arial", Font.BOLD, 20));
-		username.setBounds(253, 37, 202, 46);
+
+		JLabel username = new JLabel(patient.getName());
+		username.setFont(new Font("Bookman Old Style", Font.PLAIN, 11));
+		username.setBounds(85, 32, 202, 16);
 		contentPane.add(username);
 		
+		JLabel userLabel = new JLabel("");
+		Image userImg = new ImageIcon(this.getClass().getResource("/user.png")).getImage();
+		userLabel.setIcon(new ImageIcon(userImg));
+		userLabel.setBounds(40, 22, 45, 39);
+		contentPane.add(userLabel);
+
 		JButton logout = new JButton("Log out");
 		logout.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				try {
-					//when the user logs out we close the connection with the server
+					// when the user logs out we close the connection with the server
 					client.sendFunction("logout");
 					client.closeConnection();
 					System.exit(0);
 				} catch (IOException e1) {
-					JOptionPane.showMessageDialog(PatientDisplay.this, "Problems closing connection", "Message",
+					JOptionPane.showMessageDialog(PatientMenu.this, "Problems closing connection", "Message",
 							JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
-		logout.setBounds(10, 287, 89, 23);
+		Image logOutImg = new ImageIcon(this.getClass().getResource("/logOut.png")).getImage();
+		logout.setIcon(new ImageIcon(logOutImg));
+		logout.setBounds(417, 29, 98, 23);
 		contentPane.add(logout);
-		
+
+		// CLOSING CONNECTION WHEN CLOSING FRAME
+		WindowListener exitListener = (WindowListener) new WindowAdapter() {
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				try {
+					client.sendFunction("logout");
+					client.closeConnection();
+				} catch (IOException e1) {
+					JOptionPane.showMessageDialog(PatientMenu.this, "Problems closing connection", "Message",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		};
+		this.addWindowListener(exitListener);
 	}
+
 }
