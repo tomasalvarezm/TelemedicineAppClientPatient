@@ -224,7 +224,7 @@ public class PatientRegister extends JFrame {
 		contentPane.add(lblDoctor);
 
 		doctorBox = new JComboBox();
-		doctorBox.setBounds(112, 239, 95, 22);
+		doctorBox.setBounds(112, 239, 139, 22);
 		contentPane.add(doctorBox);
 		
 		calendar = new JCalendar();
